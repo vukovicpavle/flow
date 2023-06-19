@@ -65,3 +65,6 @@ fi
 
 # Commit the changes
 git commit -m "$commit" -m "$descriptionMessage"
+
+
+# RANDOM CHANGE, DELETE LATER
