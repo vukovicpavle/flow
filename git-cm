@@ -1,0 +1,70 @@
+#!/bin/sh
+
+### Commit messages ###
+
+# Types of commit messages:
+# feat: A new feature
+# fix: A bug fix
+# docs: Documentation only changes
+# style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+# refactor: A code change that neither fixes a bug nor adds a feature
+# test: Adding missing tests or correcting existing tests
+# chore: Changes to the build process or auxiliary tools and libraries such as documentation generation
+
+# New command flow
+# 1. type in the command "git cm"
+# 2. types are listed, user selects one using arrows and enter button
+# 3. user is asked to type in an epic's name (scope), can be left blank
+# 4. user is asked to type in a short message of the commit
+# 5. user is asked to type in a longer description of the commit, can be left blank
+# 6. message is formed and commit is made
+
+# Example of the resulting commit message:
+# feat(new-commands): add new command for easier commit messages
+
+
+# Define the commit types
+types=("feat" "fix" "docs" "style" "refactor" "test" "chore")
+
+# Display the commit types
+echo "Select the type of commit:"
+for (( i=0; i<${#types[@]}; i++ ));
+do
+  echo "$((i+1))) ${types[$i]}"
+done
+
+# Prompt the user to select a commit type
+read -p "Enter the number of the commit type: " type_number
+if [[ "$type_number" -lt 1 || "$type_number" -gt "${#types[@]}" ]]; then
+  echo "Invalid selection. Please try again."
+  exit 1
+fi
+type="${types[$((type_number-1))]}"
+
+# Prompt the user to enter the commit scope
+read -p "Enter the commit scope (optional): " scope
+
+# Prompt the user to enter the commit message
+read -p "Enter the commit message: " message
+
+# Prompt the user to enter the commit description
+read -p "Enter the commit description (optional): " description
+
+# Construct the commit message
+if [[ -z "$scope" ]]; then
+  commit="$type: $message"
+else
+  commit="$type($scope): $message"
+fi
+
+descriptionMessage=""
+
+if [[ -n "$description" ]]; then
+  descriptionMessage="$description"
+fi
+
+# Commit the changes
+git commit -m "$commit" -m "$descriptionMessage"
+
+
+# RANDOM CHANGE, DELETE LATER

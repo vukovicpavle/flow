@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# Git command to start the git project
+
+# Steps:
+# 1. Create a new repo
+# 2. Add remote origin
+# 3. Rename master to main (if not already done)
+# 4. Add initial commit
+# 5. Push main to origin
+# 6. Create branches and push them to origin
+#  6.1. Create develop branch and push it to origin
+#  6.2. Create release branch and push it to origin
+#  6.3. Create test branch and push it to origin
+#  6.4. Create staging branch and push it to origin
+# 7. Ask user what will be the first epic and create a branch for it (feature/epic-name)
+# 8. Push the branch to origin
+
+# Define the git remote
+remote="origin"
+
+# Create a new repo
+git init
+
+# Add remote origin
+# Ask the user for the remote origin
+read -p "Enter the remote origin: " remote
+git remote add origin "$remote"
+
+# Rename master to main
+git branch -m master main
+
+# Add initial commit
+git add .
+git commit -m "Initial commit"
+
+# Push main to origin
+git push -u origin main
+
+# Create branches and push them to origin
+# Create develop branch and push it to origin
+git checkout -b develop
+git push -u origin develop
+
+# Create release branch and push it to origin
+git checkout -b release
+git push -u origin release
+
+# Create test branch and push it to origin
+git checkout -b test
+git push -u origin test
+
+# Create staging branch and push it to origin
+git checkout -b staging
+git push -u origin staging
+
+# Ask user what will be the first epic and create a branch for it (feature/epic-name)
+# Ask the user for the epic name
+read -p "Enter the epic name: " epic
+git checkout -b "feature/$epic"
+git push -u origin "feature/$epic"
+
+# Push the branch to origin
+git push -u origin "feature/$epic"
+
+# Display the git branches
+git branch -a
+
