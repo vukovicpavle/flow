@@ -9,9 +9,17 @@
 
 # Get the current branch name
 current_branch=$(git branch --show-current)
+release_branch="release"
+
+# If there is an argument, use it as the release branch
+if [ "$1" != "" ]; then
+  release_branch="$1"
+fi
+
+echo "Releasing $current_branch to $release_branch"
 
 # Checkout the branch from argument
-git checkout "$1"
+git checkout "$release_branch"
 
 # Merge the current branch into the branch from argument
 git merge "$current_branch"
