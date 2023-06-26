@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Git command to start the new feature
+
+# git hotfix <epic-name>
+
+git checkout main
+git pull
+git checkout -b "hotfix/$1"
+git push -u origin "hotfix/$1"
+
+git branch -a
